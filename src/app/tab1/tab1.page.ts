@@ -26,4 +26,14 @@ export class Tab1Page {
     });
     toast.present();
   }
+
+  async addItem() {
+    console.log("Adding Item");
+    const toast = await this.toastController.create({
+      message: 'Adding Item ...',
+      duration: 3000
+    });
+    toast.present();
+  }
 }
+
