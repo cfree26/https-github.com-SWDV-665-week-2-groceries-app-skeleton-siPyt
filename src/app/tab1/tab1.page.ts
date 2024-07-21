@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
 export class Tab1Page {
   groceries: Array<{ name: string, quantity: number }>;
 
-  constructor() {
+  constructor(private toastController: ToastController) {
     this.groceries = [
       { name: 'Apples', quantity: 2 },
       { name: 'Bananas', quantity: 3 },
@@ -17,7 +18,12 @@ export class Tab1Page {
     ];
   }
 
-  removeItem(item: { name: string, quantity: number }) {
+  async removeItem(item: { name: string, quantity: number }) {
     console.log("Removing Item - ", item);
+    const toast = await this.toastController.create({
+      message: 'Removing Item - ' + item.name + ' ...',
+      duration: 3000
+    });
+    toast.present();
   }
 }
