@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -9,7 +9,7 @@ import { ToastController } from '@ionic/angular';
 export class Tab1Page {
   groceries: Array<{ name: string, quantity: number }>;
 
-  constructor(private toastController: ToastController) {
+  constructor(private toastController: ToastController, private alertController: AlertController) {
     this.groceries = [
       { name: 'Apples', quantity: 2 },
       { name: 'Bananas', quantity: 3 },
@@ -28,12 +28,46 @@ export class Tab1Page {
   }
 
   async addItem() {
-    console.log("Adding Item");
+    const alert = await this.alertController.create({
+      header: 'Add Grocery Item',
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: 'Item Name'
+        },
+        {
+          name: 'quantity',
+          type: 'number',
+          placeholder: 'Quantity',
+          min: 1
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Add',
+          handler: data => {
+            this.groceries.push({ name: data.name, quantity: data.quantity });
+            this.showToast('Adding Item - ' + data.name + ' ...');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async showToast(message: string) {
     const toast = await this.toastController.create({
-      message: 'Adding Item ...',
+      message: message,
       duration: 3000
     });
     toast.present();
   }
 }
+
 
