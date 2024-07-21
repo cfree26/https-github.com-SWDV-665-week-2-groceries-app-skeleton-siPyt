@@ -18,6 +18,6 @@ export class Tab1Page {
   }
 
   removeItem(item: { name: string, quantity: number }) {
-    this.groceries = this.groceries.filter(grocery => grocery !== item);
+    console.log("Removing Item - ", item);
   }
 }
