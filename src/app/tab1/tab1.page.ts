@@ -19,7 +19,7 @@ export class Tab1Page {
   }
 
   async removeItem(item: { name: string, quantity: number }) {
-    console.log("Removing Item - ", item);
+    this.groceries = this.groceries.filter(grocery => grocery !== item);
     const toast = await this.toastController.create({
       message: 'Removing Item - ' + item.name + ' ...',
       duration: 3000
@@ -69,5 +69,6 @@ export class Tab1Page {
     toast.present();
   }
 }
+
 
 
