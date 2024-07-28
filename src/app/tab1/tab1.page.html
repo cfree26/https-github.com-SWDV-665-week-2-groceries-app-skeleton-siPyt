@@ -6,9 +6,19 @@
 
 <ion-content>
   <ion-list>
+    <!-- Display this message when the groceries list is empty -->
+    <ion-item *ngIf="groceries.length === 0" lines="none" class="empty-message">
+      <ion-label>No items available on the list!</ion-label>
+    </ion-item>
+
+    <!-- List of grocery items -->
     <ion-item-sliding *ngFor="let item of groceries">
       <ion-item> {{ item.name }} - Quantity: {{ item.quantity }} </ion-item>
       <ion-item-options side="end">
+        <ion-item-option color="primary" (click)="updateItem(item)">
+          <ion-icon slot="start" name="create"></ion-icon>
+          Edit
+        </ion-item-option>
         <ion-item-option color="secondary" (click)="removeItem(item)">
           <ion-icon slot="start" name="trash"></ion-icon>
           Delete
@@ -23,3 +33,13 @@
     </ion-fab-button>
   </ion-fab>
 </ion-content>
+
+<style>
+  .empty-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+  }
+</style>
